@@ -6,6 +6,8 @@
 # The full license is in the file LICENSE, distributed with this software.
 # ----------------------------------------------------------------------------
 
+import sys
+
 from tornado.web import authenticated, HTTPError
 
 from labman.gui.handlers.base import BaseHandler
@@ -24,6 +26,23 @@ class SamplePlatingProcessListHandler(BaseHandler):
             user, PlateConfiguration(plate_config_id), plate_ext_id)
 
         self.write({'plate_id': spp.plate.id, 'process_id': spp.id})
+
+
+class SamplePlatingProcessNotesHandler(BaseHandler):
+    @authenticated
+    def post(self, process_id):
+        # pass
+        # user = self.current_user
+        # # plate_ext_id = self.get_argument('plate_name')
+        # notes = self.get_argument('notes')
+        sys.stdout.write(process_id)
+
+        # spp = SamplePlatingProcess.create(
+        #     user, PlateConfiguration(plate_config_id), plate_ext_id)
+
+        # self.write({'plate_id': spp.plate.id, 'process_id': spp.id})
+
+        
 
 
 def sample_plating_process_handler_patch_request(
@@ -92,6 +111,9 @@ def sample_plating_process_handler_patch_request(
                     404, 'Well attribute %s not found' % well_attribute)
         else:
             raise HTTPError(404, 'Attribute %s not found' % attribute)
+
+    elif req_op == 'notes':
+        raise HTTPError(404, 'The notes function is to be added')
 
     else:
         raise HTTPError(400, 'Operation %s not supported. Current supported '

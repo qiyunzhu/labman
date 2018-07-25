@@ -87,6 +87,9 @@
 
     // Add the change callback to the plate configuration select
     $('#plate-conf-select').on('change', change_plate_configuration);
+
+    // Add the change callback to the notes
+    $('#notes').on('blur', change_notes);
   });
 
 </script>
@@ -143,6 +146,12 @@
 </div>
 
 <div id='plate-map-div' class='spreadsheet-container'></div>
+
+<!-- Notes div -->
+<div class='form-group'>
+  <label><h4>Notes:</h4></label>
+  <input type='text' id='notes' class='form-control' />
+</div>
 
 <h4>Well comments</h4>
 <div id='well-plate-comments' class="comment-box"></div>

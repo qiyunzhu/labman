@@ -116,3 +116,27 @@ function change_plate_configuration() {
     pv = new PlateViewer('plate-map-div', undefined, undefined, $opt.attr('pm-data-rows'), $opt.attr('pm-data-cols'));
   }
 }
+
+/**
+ *
+ * Changes the notes of a sample plating process
+ *
+ **/
+function change_notes() {
+  var value = $('#notes').val().trim();
+  var plateId = $('#plateName').prop('pm-data-plate-id');
+  if (plateId === undefined) {
+    throw "Can't add notes to an empty plate";
+  } else {
+    $.ajax({url: '/process/sample_plating/' + plateId + '/',
+           type: 'PATCH',
+           data: {'op': 'notes', 'path': '/name', 'value': value},
+           success: function (data) {
+            $('#notes').html(notes);
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            bootstrapAlert(jqXHR.responseText, 'danger');
+          }
+    });
+  }
+}

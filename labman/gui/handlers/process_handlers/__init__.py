@@ -7,7 +7,8 @@
 # ----------------------------------------------------------------------------
 
 from .sample_plating_process import (
-    SamplePlatingProcessListHandler, SamplePlatingProcessHandler)
+    SamplePlatingProcessListHandler, SamplePlatingProcessNotesHandler,
+    SamplePlatingProcessHandler)
 from .gdna_extraction_process import GDNAExtractionProcessHandler
 from .gdna_compression_process import GDNAPlateCompressionProcessHandler
 from .library_prep_16s_process import LibraryPrep16SProcessHandler
@@ -43,6 +44,7 @@ __all__ = ['SamplePlatingProcessListHandler', 'SamplePlatingProcessHandler',
 
 PROCESS_ENDPOINTS = [
     (r"/process/sample_plating/([0-9]+)$", SamplePlatingProcessHandler),
+    (r"/process/sample_plating/([0-9]+)/notes$", SamplePlatingProcessNotesHandler),
     (r"/process/sample_plating$", SamplePlatingProcessListHandler),
     (r"/process/gdna_extraction$", GDNAExtractionProcessHandler),
     (r"/process/gdna_compression$", GDNAPlateCompressionProcessHandler),
