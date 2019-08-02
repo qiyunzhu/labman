@@ -1,12 +1,12 @@
-This tutorial will walk you through the Labman process from plating your samples to preparing your sequencing runs.
+This tutorial will walk you through the LabControl process from plating your samples to preparing your sequencing runs.
 
 Home Screen
 =========
 
-* Labman- Returns you to the home page
+* LabControl- Returns you to the home page
 * Plates
 
-	* List- Brings you to a list of all of the plates on Labman
+	* List- Brings you to a list of all of the plates on LabControl
 		* You can highlight plates here to continue processing them
 	* Search- Bring you to search boxes to find plates based on their plate comments or well comments or both
 	* Plate samples- Creates a table accounting for which samples are in which well
@@ -21,14 +21,14 @@ Home Screen
 
 * Pools
 
-	* List- Brings you to a list of all of the pools on Labman
+	* List- Brings you to a list of all of the pools on LabControl
 		* You can highlight pools here to continue processing them
 	* Pool library plates- Combines samples together for multiplexing 
-	* Prepare amplicon sequencing pool- Combines pools together
+	* Prepare amplicon final pool- Combines pools together
 
 * Sequencing runs
 
-	* List- Brings you to a list of all of the sequencing runs on Labman 
+	* List- Brings you to a list of all of the sequencing runs on LabControl 
 		* You can highlight sequencing runs here to continue processing them
 	* Prepare sequencing run- Creates a sequencing file for the sequencer 
 	
@@ -58,7 +58,7 @@ Once your plate name is created, you will be asked to fill in information regard
 
 Below “Plate configuration” you will be asked to choose the “Studies being plated.” After choosing “Add Study”, a list of studies available in the database will appear. On this page, select the green plus sign to add a study to your plate. If you want to add an additional study, simply select “Add Study” again and repeat the steps—this will allow you to combine samples from multiple studies onto a single plate.
 
-After choosing a “Plate configuration,” a table will be created that matches your plate type. Here you can insert your sample names. Each well will autofill from your study, or studies, selected and will show 20 options at a time. These wells are case sensitive. Be sure to type the study ID in front of your sample name. 
+After choosing a “Plate configuration,” a table will be created that matches your plate type. Here you can insert your sample names. Each sample name must be prefixed with its study id and a period; if you are typing in well contents, autocomplete will display matching study+sample ids from your selected study or studies (20 options at a time). However, if you are pasting in sample ids, you must append the study id prefix yourself.  These wells are case sensitive.
 
 If your samples are not found within your metadata from your Qiita study, you will receive an error. If your sample names are long and you are unable to read them, you can resize the columns by dragging the edges. 
 
@@ -66,7 +66,7 @@ If you input 2 identical sample names on the same plate, both wells will become 
 
 If you input a sample that is already on another plate within your study, you will be alerted with a message in your “Well comments” text box at the bottom of your screen.
 
-If you want to add a comment to a well, right click the well after you have added a sample name. Once you select “Add comment,” an “Add comment to well” window will pop-up where you can input a note. The edges of your sample name will now be highlighted green and your comment will appear in the “Well comments” text box. To remove or edit your comment, right click the well. Select the “Add comment” again to make your edits in the pop-up window. 
+If you want to add a comment to a well, right click the well after you have added a sample name *and exited edit mode*. Once you select “Add comment,” an “Add comment to well” window will pop-up where you can input a note. The edges of your sample name will now be highlighted green and your comment will appear in the “Well comments” text box. To remove or edit your comment, right click the well. Select the “Add comment” again to make your edits in the pop-up window.
 
 When you are finished plating your samples, select “Save” and you will be returned to the home screen.
 
@@ -80,7 +80,12 @@ This will bring you to the “gDNA plate extraction” page. Here, you can choos
 
 This will bring up a text box asking for information on materials used for your extraction. Importantly, these materials must exist (or be created) in the database, ensuring that the values recorded are consisten across samples.Here you will be asked to select your “gDNA plate name” (if you had more than one plate in your study), your “KingFisher robot” used, your “EpMotion robot”, your “EpMotion tool”, and finally the “Extraction kit” used. The first four options require values to already exist in the database, and therefore only have drop-down menus. The extraction kit option allows for free text. However, if the inputted extraction kit does not exist, you will be prompted to add them to the system.
 
-You will then be asked for the “Elution volume (µL)” and the “Extraction date”. The date can be past or present, however you cannot select a future date.
+Alternatively, you can make an entry for DNA that was extracted in a different
+lab, for which the given equipment and reagent specifications are not
+applicable. In this case, click the 'Externally extracted' check box at the top
+of the page. All the equipment and reagent options will be disabled.
+
+In either case, you will then be asked for the “Elution volume (µL)” and the “Extraction date”. The date can be past or present, however you cannot select a future date.
 
 When you are finished with your plate extraction, select “Extract” and you will be returned to the home screen.
 
@@ -131,12 +136,12 @@ When you are finished, select “Compute pooling values.” You will receive a .
 CANT MOVE ON FROM HERE TO KNOW IF GO BACK TO HOME SCREEN
 
 
-Prepare Amplicon Sequencing Pool
+Prepare Amplicon Final Pool
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Typically, samples from multiple pooled library plates are combined into a single run. When you are ready to comine your library plate pools, go to the “Pools” drop-down menu and select “Pool amplicon sequencing pool”.
+Typically, samples from multiple pooled library plates are combined into a single run. When you are ready to comine your library plate pools, go to the “Pools” drop-down menu and select “Pool amplicon final pool”.
 
-This brings you to the “Prepare sequencing pool” page. Here, you will name your pool and choose the plate pools. To add your plate pools, select “Add pool.” This will bring up a menu of all of the pools. You can select your pool by clicking on the green plus sign next to your pool.
+This brings you to the “Prepare final pool” page. Here, you will name your pool and choose the plate pools. To add your plate pools, select “Add pool.” This will bring up a menu of all of the pools. You can select your pool by clicking on the green plus sign next to your pool.
 
 Here you can gather information on the total amount of “Pooled samples”, “Percentage”, “DNA concentration (ng/µL)”, “ 5µg Amt (ng)”, and “Sample Amt (µL)”.
 
@@ -254,7 +259,7 @@ This brings you to the “Shotgun library prep” page. Here, you will choose th
 
 This will bring up a text box asking for information on your shotgun libraries. Here you will be asked to select index primers by separately selecting your “i5 plate” and your “i7 plate”. As with equipment like robots, primer plates are expected to be added infrequently, and must already exist in the database.
 
-You will then be asked to name your plate, input your “kappa hyper plus kit”, input your “Stub lot” and input your “Volume (mL)”. Though all of the options are free text, if the “kappa hyper plus kit” and “Stub lot” do not exist, you will be prompted to add them to the system.
+You will then be asked to name your plate, input your “KAPA HyperPlus kit”, input your “Stub lot” and input your “Volume (mL)”. Though all of the options are free text, if the “KAPA HyperPlus kit” and “Stub lot” do not exist, you will be prompted to add them to the system.
 
 When you are finished with preparing your shotgun libraries, select “Prepare libraries” and you will be returned to the home screen.
 

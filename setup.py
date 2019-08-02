@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Copyright (c) 2017-, labman development team.
+# Copyright (c) 2017-, LabControl development team.
 #
 # Distributed under the terms of the Modified BSD License.
 #
@@ -8,6 +8,7 @@
 
 from setuptools import setup, find_packages
 from glob import glob
+import versioneer
 
 classes = """
     Development Status :: 3 - Alpha
@@ -21,16 +22,16 @@ classes = """
     Operating System :: MacOS :: MacOS X
 """
 
-__version__ = '2017.5.0'
-
+# show description
 with open('README.md') as f:
     long_description = f.read()
 
 classifiers = [s.strip() for s in classes.split('\n') if s]
 
-setup(name='labman',
-      version=__version__,
+setup(name='labcontrol',
       long_description=long_description,
+      version=versioneer.get_version(),
+      cmdclass=versioneer.get_cmdclass(),
       license='BSD',
       description='A lab manager for plate maps and sequence flows',
       author='Jeff DeReus',
@@ -39,22 +40,29 @@ setup(name='labman',
       test_suite='nose.collector',
       packages=find_packages(),
       include_package_data=True,
-      package_data={'labman.db': [
-        'support_files/test_config.cfg', 'support_files/labman.dbs',
-        'support_files/labman.html', 'support_files/db_patch.sql'],
-        'labman.gui': ['templates/*.html',
-                       'static/js/*',
-                       'static/img/*',
-                       'static/css/*',
-                       'static/vendor/js/*',
-                       'static/vendor/css/*',
-                       'static/vendor/css/images/*',
-                       'static/vendor/fonts/*',
-                       'static/vendor/licenses/*']},
+      package_data={'labcontrol.db': [
+        'support_files/skeleton_labcontrol.cfg',
+        'support_files/labcontrol.dbs',
+        'support_files/labcontrol.html', 'support_files/db_patch.sql'],
+        'labcontrol.gui': ['templates/*.html',
+                           'static/js/*.js',
+                           'static/img/*.gif',
+                           'static/img/*.ico',
+                           'static/img/*.png',
+                           'static/css/*.css',
+                           'static/css/images/*.gif',
+                           'static/vendor/js/*.js',
+                           'static/vendor/js/slickgrid.plugins/*.js',
+                           'static/vendor/css/*.css',
+                           'static/vendor/css/*.map',
+                           'static/vendor/css/images/*.gif',
+                           'static/vendor/css/images/*.png',
+                           'static/vendor/fonts/glyphicons*.*',
+                           'static/vendor/licenses/*_LICENSE']},
       scripts=glob('scripts/*'),
       extras_require={'test': ['nose >= 0.10.1', 'pep8', 'mock',
                                'qiita_client']},
-      install_requires=['click', 'tornado', 'psycopg2', 'bcrypt', 'numpy',
-                        'pandas'],
+      install_requires=['click', 'tornado < 6', 'psycopg2', 'bcrypt', 'numpy',
+                        'pandas', 'natsort', 'versioneer'],
       classifiers=classifiers
       )

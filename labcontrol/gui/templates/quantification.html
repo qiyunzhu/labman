@@ -1,0 +1,54 @@
+{% extends sitebase.html %}
+
+{% block head %}
+{% import json %}
+
+<script src="/static/vendor/js/plotly-1.40.0.min.js"></script>
+
+
+<script type='text/javascript'>
+  function confirmQuantification() {
+    var plates = {% raw json.dumps(plates) %};
+    $.post("/process/quantify", {'plates-info': JSON.stringify(plates)}, function(data) {
+      bootstrapAlert('Information saved', 'success');
+      disableAll();
+    })
+      .fail(function (jqXHR, textStatus, errorThrown) {
+        bootstrapAlert(jqXHR.responseText, 'danger');
+      });
+  };
+
+  function cancelQuantification() {
+    if (confirm('Are you sure you want to cancel the current quantification?')) {
+      window.location.href = "/process/parse_quantify";
+    }
+  };
+
+  $(document).ready(function(){
+    var plates = {% raw json.dumps(plates) %};
+    for (var plateInfo of plates) {
+      var defaultClipping = clippingForPlateType(plateInfo.type);
+      var concentrations = plateInfo.concentrations;
+      var names = plateInfo.names;
+      var blanks = plateInfo.blanks;
+
+      createHeatmap(plateInfo.plate_id, concentrations, blanks, names,
+                    defaultClipping,
+                    {colormap: 'Viridis', amounts: 'Concentration'});
+    }
+  });
+</script>
+
+{% end %}
+
+{% block content %}
+<label><h3>Review plate quantification values</h3></label> <button class="btn btn-success" onclick="confirmQuantification();">Confirm</button> <button class="btn btn-danger" onclick="cancelQuantification();">Cancel</button>
+
+{% for plate_info in plates %}
+<div list-group-item>
+  <h4>{{plate_info['plate_name']}}</h4>
+  <div id='pool-results-{{plate_info['plate_id']}}'></div>
+<div>
+{% end %}
+
+{% end %}
